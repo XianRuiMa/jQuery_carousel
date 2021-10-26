@@ -1,0 +1,23 @@
+{
+  "id": "2875982",
+  "name": "轮播",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "1719339",
+      "name": "轮播右翻滚",
+      "font_class": "lunboyoufangun",
+      "unicode": "e7b7",
+      "unicode_decimal": 59319
+    },
+    {
+      "icon_id": "1722995",
+      "name": "轮播左翻滚",
+      "font_class": "lunbozuofangun",
+      "unicode": "e7be",
+      "unicode_decimal": 59326
+    }
+  ]
+}

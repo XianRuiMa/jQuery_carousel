@@ -1,0 +1,118 @@
+// 注重图片容器宽度的设置
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+ul {
+    list-style: none;
+}
+
+img {
+    vertical-align: bottom;
+    width: 100%;
+}
+
+%clearfix {
+    &::after {
+        content: "";
+        display: table;
+        clear: both;
+    }
+}
+
+
+.container {
+    &:hover {
+        .arrows {
+            display: block;
+
+        }
+    }
+
+    width: 500px;
+    margin: 100px;
+    // auto平分出现小数
+    // 注意一下
+    // 居中可能会导致left的获取出现偏差
+    overflow: hidden;
+    position: relative;
+
+    .img-list {
+        width: 500px*7;
+        position: relative;
+        left: -500px;
+
+        li {
+            width: 500px;
+            float: left;
+        }
+
+
+    }
+
+    .arrows {
+        display: none;
+
+
+        .left-arrow,
+        .right-arrow {
+            position: absolute;
+            width: 2rem;
+            height: 3rem;
+            line-height: 3rem;
+            top: 0;
+            bottom: 0;
+            margin: auto 0;
+            cursor: pointer;
+
+            &:hover {
+                background-color: rgba(0, 0, 0, .3);
+            }
+        }
+
+        .right-arrow {
+            right: 0;
+        }
+
+        i {
+            color: orange;
+            font-size: 2rem;
+        }
+
+    }
+
+    .img-index {
+        position: absolute;
+        width: 15px*4;
+        left: 0;
+        right: 0;
+        margin: 0 auto;
+        bottom: 2px;
+        cursor: pointer;
+
+        li {
+            width: 10px;
+            height: 10px;
+            margin: 2.5px;
+            border-radius: 50%;
+            background-color: #b6b4b4;
+            float: left;
+
+            &:hover {
+                background-color: orange;
+            }
+        }
+
+        // 注意注意
+        .active {
+            background-color: orange;
+        }
+
+
+    }
+
+    @extend %clearfix;
+
+}

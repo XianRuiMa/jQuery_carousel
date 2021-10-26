@@ -1,0 +1,99 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+ul {
+  list-style: none;
+}
+
+img {
+  vertical-align: bottom;
+  width: 100%;
+}
+
+.container::after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.container {
+  width: 500px;
+  margin: 100px;
+  overflow: hidden;
+  position: relative;
+}
+
+.container:hover .arrows {
+  display: block;
+}
+
+.container .img-list {
+  width: 3500px;
+  position: relative;
+  left: -500px;
+}
+
+.container .img-list li {
+  width: 500px;
+  float: left;
+}
+
+.container .arrows {
+  display: none;
+}
+
+.container .arrows .left-arrow,
+.container .arrows .right-arrow {
+  position: absolute;
+  width: 2rem;
+  height: 3rem;
+  line-height: 3rem;
+  top: 0;
+  bottom: 0;
+  margin: auto 0;
+  cursor: pointer;
+}
+
+.container .arrows .left-arrow:hover,
+.container .arrows .right-arrow:hover {
+  background-color: rgba(0, 0, 0, 0.3);
+}
+
+.container .arrows .right-arrow {
+  right: 0;
+}
+
+.container .arrows i {
+  color: orange;
+  font-size: 2rem;
+}
+
+.container .img-index {
+  position: absolute;
+  width: 60px;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  bottom: 2px;
+  cursor: pointer;
+}
+
+.container .img-index li {
+  width: 10px;
+  height: 10px;
+  margin: 2.5px;
+  border-radius: 50%;
+  background-color: #b6b4b4;
+  float: left;
+}
+
+.container .img-index li:hover {
+  background-color: orange;
+}
+
+.container .img-index .active {
+  background-color: orange;
+}
+/*# sourceMappingURL=轮播.css.map */

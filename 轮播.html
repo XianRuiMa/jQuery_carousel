@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./iconfont/iconfont.css">
+    <link rel="stylesheet" href="./css/轮播.css">
+</head>
+
+<body>
+    <div class="container">
+        <ul class="img-list">
+            <li><a href=""><img src="./img/4.jpg" alt=""></a></li>
+            <li><a href=""><img src="./img/1.jpg" alt=""></a></li>
+            <li><a href=""><img src="./img/2.jpg" alt=""></a></li>
+            <li><a href=""><img src="./img/3.jpg" alt=""></a></li>
+            <li><a href=""><img src="./img/4.jpg" alt=""></a></li>
+            <li><a href=""><img src="./img/1.jpg" alt=""></a></li>
+
+        </ul>
+        <ul class="arrows">
+            <li class="left-arrow"><i class="iconfont icon-lunbozuofangun"></i></li>
+            <li class="right-arrow"><i class="iconfont icon-lunboyoufangun"></i></li>
+        </ul>
+        <ul class="img-index">
+            <li class="active"></li>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
+    </div>
+    <script src="./jquery-3.6.0.js"></script>
+    <script>
+        $(function () {
+            // 所要使用的一些变量
+            var $container = $(".container");
+            var $leftarrow = $(".left-arrow");
+            var $rightarrow = $(".right-arrow");
+            var $imglist = $(".img-list");
+            var $pointer = $(".img-index li");
+            var imgcount = $pointer.length;
+            var imgwidth = 500;
+            var time = 200;
+            var itemtime = 10;
+            var index = 0;
+            var moving = false;
+
+            // 点击滚动
+            $leftarrow.click(function () {
+                nextpage(false);
+            });
+            $rightarrow.click(function () {
+                nextpage(true);
+            });
+            // 自动滚动
+            var autonextpage = setInterval(function () {
+                nextpage(true);
+            }, 3000);
+            // 鼠标移入，停止滚动,移出，停止滚动
+            $container.hover(function () {
+                clearInterval(autonextpage);
+            }, function () {
+                autonextpage = setInterval(function () {
+                    nextpage(true);
+                }, 3000);
+            });
+
+            // 小圆点同步更新
+            function updatepointer(next) {
+                // 找到目标点
+                var targetindex;
+                if (typeof (next) === "boolean") {
+                    if (next) {
+                        targetindex = index + 1
+                        if (targetindex === imgcount) {
+                            targetindex = 0
+                        }
+                    } else {
+                        targetindex = index - 1
+                        if (targetindex == -1) {
+                            targetindex = imgcount - 1
+                        }
+                    }
+                } else {
+                    targetindex = next;
+                }
+
+                // 移除原有的
+                $pointer.eq(index).removeClass("active");
+                // 向目标点添加
+                $pointer.eq(targetindex).addClass("active");
+                // 更新index
+                index = targetindex;
+            }
+            // 点击跳转
+            $pointer.click(function () {
+                // 获取点击的索引
+                var targetindex = $(this).index();
+                // 判断，注意这里，也是很巧妙
+                if (targetindex != index) {
+                    nextpage(targetindex)
+                }
+
+            })
+
+
+            // 滚动函数（滚动一张或多张）
+            function nextpage(next) {
+                if (moving) {
+                    return;
+                }
+                moving = true;
+                // 获取当前的left值
+                var currentleft = $imglist.position().left;
+                // 偏移量
+                var offset;
+                if (typeof (next) === "boolean") {
+                    offset = next ? -imgwidth : imgwidth;
+                } else {
+                    offset = (index - next) * imgwidth;
+                    console.log(offset);
+                }
+                // 目标位置
+                var targetleft = currentleft + offset;
+                // 单位滚动距离
+                var itemoffset = offset / (time / itemtime);
+                // 滚动
+                var nextpage = setInterval(function () {
+                    currentleft += itemoffset;
+                    // console.log(currentleft);
+                    // 当到达目标位置时，停止滚动
+                    if (currentleft === targetleft) {
+                        clearInterval(nextpage);
+                        // 注意结束了，再偷换
+                        // 偷换
+                        if (currentleft == -(imgcount + 1) * imgwidth) {
+                            currentleft = -imgwidth
+                        } else if (currentleft == 0) {
+                            currentleft = -imgcount * imgwidth
+                        }
+                        moving = false;
+                    }
+                    // 设置left值
+                    $imglist.css("left", currentleft)
+                }, itemtime);
+                updatepointer(next);
+            }
+        });
+    </script>
+</body>
+
+</html>
